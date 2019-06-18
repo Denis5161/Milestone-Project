@@ -12,6 +12,8 @@
 		9ECFEB5522B9887900DB2696 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ECFEB5322B9887900DB2696 /* Main.storyboard */; };
 		9ECFEB5722B9887A00DB2696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ECFEB5622B9887A00DB2696 /* Assets.xcassets */; };
 		9ECFEB5A22B9887A00DB2696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ECFEB5822B9887A00DB2696 /* LaunchScreen.storyboard */; };
+		9ECFEB6322B9889A00DB2696 /* englishWords.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9ECFEB6122B9889900DB2696 /* englishWords.txt */; };
+		9ECFEB6422B9889A00DB2696 /* germanWords.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9ECFEB6222B9889A00DB2696 /* germanWords.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		9ECFEB5622B9887A00DB2696 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9ECFEB5922B9887A00DB2696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9ECFEB5B22B9887A00DB2696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9ECFEB6122B9889900DB2696 /* englishWords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = englishWords.txt; sourceTree = "<group>"; };
+		9ECFEB6222B9889A00DB2696 /* germanWords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = germanWords.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				9ECFEB5622B9887A00DB2696 /* Assets.xcassets */,
 				9ECFEB5822B9887A00DB2696 /* LaunchScreen.storyboard */,
 				9ECFEB5B22B9887A00DB2696 /* Info.plist */,
+				9ECFEB6122B9889900DB2696 /* englishWords.txt */,
+				9ECFEB6222B9889A00DB2696 /* germanWords.txt */,
 			);
 			path = "Milestone Project 3";
 			sourceTree = "<group>";
@@ -122,9 +128,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ECFEB6422B9889A00DB2696 /* germanWords.txt in Resources */,
 				9ECFEB5A22B9887A00DB2696 /* LaunchScreen.storyboard in Resources */,
 				9ECFEB5722B9887A00DB2696 /* Assets.xcassets in Resources */,
 				9ECFEB5522B9887900DB2696 /* Main.storyboard in Resources */,
+				9ECFEB6322B9889A00DB2696 /* englishWords.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
