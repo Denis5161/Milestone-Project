@@ -42,8 +42,10 @@ class ViewController: UIViewController {
     var score = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
+            checkHighScore()
         }
     }
+    var highScore = 0
     
     override func loadView() {
         view = UIView()
@@ -148,12 +150,31 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        loadGame()
+        let defaults = UserDefaults.standard
+        
+        if let savedWord = defaults.object(forKey: "currentWord") as? String {
+            word = savedWord
+            highScore = defaults.integer(forKey: "highScore")
+            score = defaults.integer(forKey: "score")
+            incorrectGuesses = defaults.integer(forKey: "incorrectGuesses")
+            incorrectLetters = defaults.object(forKey: "incorrectLetters") as? [String] ?? [String]()
+            incorrectWords = defaults.object(forKey: "incorrectWords") as? [String] ?? [String]()
+            guessLabel.text = defaults.string(forKey: "guessLabelText")
+            wordBank = defaults.object(forKey: "wordBank") as? [String] ?? [String]()
+            usedStr = defaults.object(forKey: "usedStr") as? [String] ?? [String]()
+            if !incorrectWords.isEmpty || !incorrectLetters.isEmpty {
+            animateIncorrectStringsView(hide: false)
+            }
+            
+        } else {
+            loadGame()
+        }
     }
     
     
     func loadGame(action: UIAlertAction? = nil) {
         var selectedLanguage = ""
+        
         let ac = UIAlertController(title: "Choose Language", message: "Please choose a language from this list:", preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "German", style: .default, handler: { [weak self] _ in
             selectedLanguage = "german"
@@ -197,7 +218,7 @@ class ViewController: UIViewController {
             let regex = try? NSRegularExpression(pattern: "[A-Za-z]*[A-Za-z]")
             let characterCheck = regex?.firstMatch(in: characters, options: [], range: range)
             print(range)
-            print(characterCheck?.range)
+            print(characterCheck!.range)
             
             //Check if the entered string contains a valid character AND that the range of valid characters is equal to the range of characters
             if characterCheck != nil && characterCheck?.range == range {
@@ -238,8 +259,7 @@ class ViewController: UIViewController {
             if uppercasedStr == word {
                 showSuccessMessage()
             } else {
-                incorrectGuesses += 1
-                incorrectWords.append(uppercasedStr)
+                incorrectGuess(appendStr: uppercasedStr, toArray: &incorrectWords)
             }
         } else {
             promptWord = ""
@@ -254,12 +274,13 @@ class ViewController: UIViewController {
             case word:
                 showSuccessMessage()
             case guessLabel.text:
-                incorrectGuesses += 1
-                incorrectLetters.append(uppercasedStr)
+                incorrectGuess(appendStr: uppercasedStr, toArray: &incorrectLetters)
             default:
                 guessLabel.text = promptWord
             }
         }
+        print("Im running!")
+        saveGameState()
         
         if incorrectGuesses > 7 {
             gameOver()
@@ -281,6 +302,7 @@ class ViewController: UIViewController {
         incorrectGuesses = 0
         animateIncorrectStringsView(hide: true)
         guessLabel.text = String(repeating: "_ ", count: word.count)
+        saveGameState()
     }
     
     func resetGame() {
@@ -323,6 +345,32 @@ class ViewController: UIViewController {
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             present(ac, animated: true)
         }
+    }
+    
+    func checkHighScore() {
+        if score > highScore {
+            highScore = score
+            saveGameState()
+        }
+    }
+    
+    func incorrectGuess(appendStr str: String, toArray array: inout [String]) {
+        incorrectGuesses += 1
+        array.append(str)
+    }
+    
+    func saveGameState() {
+        let defaults = UserDefaults.standard
+        
+        defaults.set(highScore, forKey: "highScore")
+        defaults.set(score, forKey: "score")
+        defaults.set(word, forKey: "currentWord")
+        defaults.set(incorrectGuesses, forKey: "incorrectGuesses")
+        defaults.set(incorrectLetters, forKey: "incorrectLetters")
+        defaults.set(incorrectWords, forKey: "incorrectWords")
+        defaults.set(guessLabel.text, forKey: "guessLabelText")
+        defaults.set(wordBank, forKey: "wordBank")
+        defaults.set(usedStr, forKey: "usedStr")
     }
     
 }
